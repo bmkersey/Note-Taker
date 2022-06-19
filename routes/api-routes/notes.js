@@ -1,9 +1,8 @@
 const router = require('express').Router()
+const { json } = require('body-parser');
 const fs = require('fs');
 const path = require('path');
-const { v4: uuidv4 } = require('uuid');
-
-const { notes } = require('../../db/notes.json')
+const { notes } = require('../../db/db.json')
 
 router.get('/notes', (req, res) => {
     res.json(notes);
@@ -11,8 +10,7 @@ router.get('/notes', (req, res) => {
 
 router.post('/notes', (req, res) => {
     const newNote = req.body;
-    newNote.id = uuidv4();
-
+    
     notes.push(newNote);
 
     const newObj = {
@@ -27,6 +25,5 @@ router.post('/notes', (req, res) => {
     res.json(notes)
 
 })
-
 
 module.exports = router
