@@ -10,14 +10,16 @@ router.get('/notes', (req, res) => {
 
 router.post('/notes', (req, res) => {
     const newNote = req.body;
+    newNote.id = notes.length + 1
     
     notes.push(newNote);
 
     const newObj = {
-        'notes': notes
+        'notes': notes,
+        
     };
 
-    fs.writeFile(path.join(__dirname, '../../db/notes.json'), JSON.stringify(newObj), err => {
+    fs.writeFile(path.join(__dirname, '../../db/db.json'), JSON.stringify(newObj), err => {
         if (err) {
             console.log(err);
         }
@@ -25,5 +27,6 @@ router.post('/notes', (req, res) => {
     res.json(notes)
 
 })
+
 
 module.exports = router
